@@ -24,8 +24,6 @@
     <meta name="msapplication-TileColor" content="#00ff88">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
 
@@ -179,7 +177,7 @@
             }
         }
 
-        .countdown-container {
+        .crypto-container {
             background: rgba(0, 255, 136, 0.1);
             border: 2px solid #00ff88;
             border-radius: 20px;
@@ -190,6 +188,8 @@
                 0 0 30px rgba(0, 255, 136, 0.3),
                 inset 0 0 30px rgba(0, 255, 136, 0.1);
             animation: border-glow 3s ease-in-out infinite alternate;
+            max-width: 800px;
+            width: 100%;
         }
 
         @keyframes border-glow {
@@ -204,9 +204,9 @@
             }
         }
 
-        .countdown-title {
+        .crypto-title {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(1.2rem, 4vw, 2rem);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             color: #00ff88;
             text-align: center;
             margin-bottom: 30px;
@@ -214,46 +214,110 @@
             letter-spacing: 0.1em;
         }
 
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
+        .address-section {
+            margin-bottom: 40px;
         }
 
-        .time-unit {
-            text-align: center;
-            min-width: 80px;
-        }
-
-        .time-number {
+        .address-label {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 700;
+            font-size: clamp(1rem, 3vw, 1.3rem);
             color: #88ff00;
-            display: block;
-            text-shadow: 0 0 20px #88ff00;
-            animation: number-pulse 1s ease-in-out infinite;
-        }
-
-        @keyframes number-pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        .time-label {
-            font-size: clamp(0.8rem, 2vw, 1rem);
-            color: #00ff88;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-top: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .address-container {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .address-text {
+            font-family: 'Space Mono', monospace;
+            color: #00ff88;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            word-break: break-all;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .copy-btn {
+            background: linear-gradient(45deg, #00ff88, #88ff00);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 0.05em;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .trading-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .trading-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #00ff88, #88ff00);
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .trading-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #88ff00, #00ff88);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .trading-link:hover::before {
+            left: 0;
+        }
+
+        .trading-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.4);
         }
 
         .bots-section {
@@ -298,9 +362,17 @@
         }
 
         .bot-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px auto;
             display: block;
+            fill: #00ff88;
+            transition: all 0.3s ease;
+        }
+
+        .bot-card:hover .bot-icon {
+            fill: #88ff00;
+            transform: scale(1.1);
         }
 
         .bot-title {
@@ -386,6 +458,25 @@
             margin-top: 40px;
         }
 
+        /* Copy notification */
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #00ff88, #88ff00);
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .copy-notification.show {
+            transform: translateX(0);
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -402,33 +493,43 @@
                 padding: 0 10px;
             }
 
-            .countdown-container {
+            .crypto-container {
                 padding: 25px 20px;
                 margin-bottom: 40px;
                 border-radius: 15px;
             }
 
-            .countdown-title {
-                font-size: clamp(1rem, 5vw, 1.5rem);
-                margin-bottom: 20px;
+            .crypto-title {
+                font-size: clamp(1.2rem, 5vw, 1.8rem);
+                margin-bottom: 25px;
             }
 
-            .countdown {
+            .address-container {
+                flex-direction: column;
                 gap: 15px;
-                justify-content: space-around;
+                padding: 15px;
             }
 
-            .time-unit {
-                min-width: 60px;
-            }
-
-            .time-number {
-                font-size: clamp(1.8rem, 8vw, 3rem);
-            }
-
-            .time-label {
+            .address-text {
                 font-size: clamp(0.7rem, 3vw, 0.9rem);
-                margin-top: 5px;
+                min-width: unset;
+            }
+
+            .copy-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+
+            .trading-links {
+                gap: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .trading-link {
+                padding: 12px 25px;
+                font-size: clamp(0.8rem, 3vw, 1rem);
+                min-width: 140px;
             }
 
             .bots-section {
@@ -447,8 +548,17 @@
             }
 
             .bot-icon {
-                font-size: 2.5rem;
-                margin-bottom: 15px;
+                width: 50px;
+                height: 50px;
+                margin: 0 auto 15px auto;
+                display: block;
+                fill: #00ff88;
+                transition: all 0.3s ease;
+            }
+
+            .bot-card:hover .bot-icon {
+                fill: #88ff00;
+                transform: scale(1.1);
             }
 
             .bot-title {
@@ -475,32 +585,25 @@
                 text-align: center;
             }
 
-            /* Reduce particle count on mobile for performance */
             .particle {
                 display: none;
             }
 
-            /* Make stars smaller on mobile */
             .star {
                 width: 2px !important;
                 height: 2px !important;
             }
+
+            .copy-notification {
+                top: 10px;
+                right: 10px;
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 480px) {
-            .countdown {
-                gap: 10px;
-            }
-
-            .time-unit {
-                min-width: 50px;
-            }
-
-            .time-number {
-                font-size: clamp(1.5rem, 10vw, 2.5rem);
-            }
-
-            .countdown-container {
+            .crypto-container {
                 padding: 20px 15px;
             }
 
@@ -511,6 +614,15 @@
 
             .bots-section {
                 gap: 20px;
+            }
+
+            .trading-links {
+                gap: 12px;
+            }
+
+            .trading-link {
+                padding: 10px 20px;
+                min-width: 120px;
             }
         }
     </style>
@@ -524,33 +636,44 @@
             <h1 class="logo">D00D LABS</h1>
         </div>
 
-        <p class="subtitle">Something Epic is Brewing D000000d...</p>
+        <p class="subtitle">Building software that helps projects bring value to their holders.</p>
 
-        <div class="countdown-container">
-            <div class="countdown-title">Launch Countdown</div>
-            <div class="countdown">
-                <div class="time-unit">
-                    <span class="time-number" id="days">00</span>
-                    <span class="time-label">Days</span>
+        <div class="crypto-container">
+            <div class="crypto-title">Token Address</div>
+            <div class="address-section">
+                <div class="address-container">
+                    <div class="address-text" id="tokenAddress">YOUR_TOKEN_ADDRESS_HERE</div>
+                    <button class="copy-btn" onclick="copyAddress()">Copy</button>
                 </div>
-                <div class="time-unit">
-                    <span class="time-number" id="hours">00</span>
-                    <span class="time-label">Hours</span>
-                </div>
-                <div class="time-unit">
-                    <span class="time-number" id="minutes">00</span>
-                    <span class="time-label">Minutes</span>
-                </div>
-                <div class="time-unit">
-                    <span class="time-number" id="seconds">00</span>
-                    <span class="time-label">Seconds</span>
-                </div>
+            </div>
+
+
+
+            <div class="trading-links">
+                <a href="https://axiom.trade/meme/CvwoGMuFWg4bEy8b2sn9vn3w14TzQKLCdq9ZGiuXu4AC" target="_blank"
+                    class="trading-link" id="axiomLink">
+                    🔥 Axiom
+                </a>
+                <a href="https://birdeye.so/token/HXUaUqfagpEvUPDk2d5YrJ8G52zvoP7ZHxKw97irBAGS?chain=solana"
+                    target="_blank" class="trading-link" id="birdeyeLink">
+                    👁️ Birdeye
+                </a>
+                <a href="https://jup.ag/swap/So11111111111111111111111111111111111111112-HXUaUqfagpEvUPDk2d5YrJ8G52zvoP7ZHxKw97irBAGS"
+                    target="_blank" class="trading-link" id="jupiterLink">
+                    🪐 Jupiter
+                </a>
             </div>
         </div>
 
         <div class="bots-section">
             <div class="bot-card">
-                <div class="bot-icon">🤖</div>
+                <svg class="bot-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid">
+                    <g>
+                        <path
+                            d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" />
+                    </g>
+                </svg>
                 <h3 class="bot-title">Discord Bot</h3>
                 <a href="https://discord.com/oauth2/authorize?client_id=1385313073476276378&permissions=275414846496&scope=bot%20applications.commands"
                     target="_blank" class="bot-link">Add to Server</a>
@@ -558,7 +681,25 @@
             </div>
 
             <div class="bot-card">
-                <div class="bot-icon">📱</div>
+                <svg class="bot-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs>
+                        <linearGradient id="linear-gradient" x1="128" y1="256" x2="128" gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#1d93d2" />
+                            <stop offset="1" stop-color="#38b0e3" />
+                        </linearGradient>
+                    </defs>
+                    <title>Telegram_logo</title>
+                    <circle cx="128" cy="128" r="128" fill="url(#linear-gradient)" />
+                    <path
+                        d="M86.644,137.293l15.187,42.032s1.898,3.932,3.932,3.932s32.271-31.461,32.271-31.461l33.626-64.954L87.454,126.508Z"
+                        fill="#c8daea" />
+                    <path d="M106.913,148.271l-2.916,30.982s-1.221,9.493,8.27,0,18.577-16.812,18.577-16.812"
+                        fill="#a9c6d8" />
+                    <path
+                        d="M86.98,138.857,55.88,128.679s-3.733-1.515-2.531-4.949c.248-.708.746-1.311,2.240-2.347,6.921-4.825,128.113-48.384,128.113-48.384s3.422-1.153,5.440-.386a2.951,2.951,0,0,1,2.010,2.192,9.985,9.985,0,0,1,.271,2.758c-.010.802-.107,1.545-.180,2.711-.738,11.909-22.827,100.793-22.827,100.793s-1.321,5.201-6.057,5.379a8.673,8.673,0,0,1-5.825-2.240c-9.291-7.995-41.407-29.574-48.504-34.322a1.355,1.355,0,0,1-.582-.960c-.099-.5.445-1.12.445-1.12s55.922-49.707,57.427-54.923c.115-.404-.320-.604-.905-.427-3.716,1.367-68.102,42.026-75.205,46.511A3.424,3.424,0,0,1,86.98,138.857Z"
+                        fill="#fff" />
+                </svg>
                 <h3 class="bot-title">Telegram Bot</h3>
                 <a href="https://t.me/D00ds_WTF_BOT" target="_blank" class="bot-link">@D00ds_WTF_BOT</a>
                 <div class="free-badge">Try For Free</div>
@@ -570,12 +711,17 @@
         </div>
     </div>
 
+    <!-- Copy notification -->
+    <div class="copy-notification" id="copyNotification">
+        Address copied to clipboard! 🚀
+    </div>
+
     <script>
         // Create animated stars
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const isMobile = window.innerWidth <= 768;
-            const numStars = isMobile ? 25 : 50; // Fewer stars on mobile
+            const numStars = isMobile ? 25 : 50;
 
             for (let i = 0; i < numStars; i++) {
                 const star = document.createElement('div');
@@ -591,7 +737,6 @@
 
         // Create floating particles
         function createParticles() {
-            // Reduce particles on mobile for better performance
             const isMobile = window.innerWidth <= 768;
             if (isMobile) return;
 
@@ -606,43 +751,45 @@
                 setTimeout(() => {
                     particle.remove();
                 }, 8000);
-            }, 800); // Slower creation rate
+            }, 800);
         }
 
-        // Countdown functionality
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const targetDate = new Date(now + (2 * 24 * 60 * 60 * 1000)).getTime(); // 2 days from now
+        // Copy address to clipboard
+        function copyAddress() {
+            const addressText = document.getElementById('tokenAddress').textContent;
+            navigator.clipboard.writeText(addressText).then(() => {
+                showCopyNotification();
+            }).catch(err => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = addressText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showCopyNotification();
+            });
+        }
 
-            function tick() {
-                const current = new Date().getTime();
-                const distance = targetDate - current;
-
-                if (distance < 0) {
-                    document.querySelector('.countdown-title').textContent = 'LAUNCH INITIATED!';
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById('days').textContent = String(days).padStart(2, '0');
-                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-            }
-
-            tick();
-            setInterval(tick, 1000);
+        // Show copy notification
+        function showCopyNotification() {
+            const notification = document.getElementById('copyNotification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
         }
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
             createParticles();
-            updateCountdown();
+
+            // Update with your actual token address
+            const tokenAddress = 'HXUaUqfagpEvUPDk2d5YrJ8G52zvoP7ZHxKw97irBAGS'; // Replace with your actual token address
+
+            document.getElementById('tokenAddress').textContent = tokenAddress;
+            // Links are already set in HTML, no need to override them
         });
 
         // Add some random glitch effects
